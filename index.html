@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>任小乐的电子时钟</title>
+		<style type="text/css">
+		    div{
+		        width: 600px;
+		        height: 300px;
+		        background: dimgray;
+				margin: 0px auto;
+		    }
+		    .date {
+		        text-align: center;
+		        color: lightpink;
+		        font-size: 50px;
+		    }
+		    .time {
+		        text-align: center;
+		        color: gold;
+		        font-size: 50px;
+		    }
+		</style>
+    </head>
+    <body>
+		<script type="text/javascript">
+		    function getDou(number) {
+		        if(number < 10) {
+		            return '0' + number;
+		        } else {
+		            return number;
+		        }
+		    }
+		    function getWeek(week) {
+		        var sWeek = null;
+		        switch(week) {
+		            case 0:
+		                sWeek = '星期天'
+		                break;
+		            case 1:
+		                sWeek = '星期一'
+		                break;
+		            case 2:
+		                sWeek = '星期二'
+		                break;
+		            case 3:
+		                sWeek = '星期三'
+		                break;
+		            case 4:
+		                sWeek = '星期四'
+		                break;
+		            case 5:
+		                sWeek = '星期五'
+		                break;
+		            case 6:
+		                sWeek = '星期六'
+		                break;
+		            default:
+		                break;
+		        }
+		        return ' ' + sWeek;
+		    }
+		    window.onload = function() {
+		        var oDate = document.getElementsByTagName("p")[0];
+		        var oTime = document.getElementsByTagName("p")[1];
+		 
+		        function tick() {
+		            var date = new Date();
+		            var sDate = null;
+		            var sTime = null;
+		            var hours = date.getHours();
+		            if(hours > 12) {
+		                hours %= 12;
+		                sTime = '下午 ';
+		            } else {
+		                sTime = '上午 ';
+		            }
+		            sTime += getDou(hours) + ':' + getDou(date.getMinutes()) + ':' + getDou(date.getSeconds());
+		            sTime += getWeek(date.getUTCDay());
+		            oTime.innerHTML = sTime;
+		 
+		            sDate = date.getUTCFullYear() + "年";
+		            if(date.getUTCMonth() < 9) {
+		                sDate += '0' + (date.getUTCMonth() + 1) + "月";
+		            } else {
+		                sDate += (date.getUTCMonth() + 1) + "月";
+		            }
+		            sDate += date.getUTCDate() + "日";
+		            oDate.innerHTML = sDate;
+		        }
+		        setInterval(tick, 1000);
+		        tick();
+		    }
+		</script>
+        <div>
+            <p class="date">日期</p>
+            <p class="time">时间</p>
+        </div>
+    </body>
+</html>
